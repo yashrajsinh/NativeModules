@@ -7,16 +7,33 @@ import com.facebook.react.ReactHost
 import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 
+// custom native module
+import com.nativemodules.DeviceModule
+
+// React Native classes needed for manual package
+import com.facebook.react.ReactPackage
+import com.facebook.react.bridge.NativeModule
+import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.uimanager.ViewManager
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactHost: ReactHost by lazy {
     getDefaultReactHost(
       context = applicationContext,
-      packageList =
-        PackageList(this).packages.apply {
-          // Packages that cannot be autolinked yet can be added manually here, for example:
-          // add(MyReactNativePackage())
-        },
+      packageList = PackageList(this).packages.apply {
+        // add custom package here
+        add(object : ReactPackage {
+          override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
+            // adding custom module here
+            return listOf(DeviceModule(reactContext))
+          }
+
+          override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
+            return emptyList()
+          }
+        })
+      },
     )
   }
 

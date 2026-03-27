@@ -5,17 +5,18 @@
  * @format
  */
 
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  NativeModules,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 //custom toast
 import Toast from 'react-native-toast-message';
 function App() {
   const handleAndroid = () => {
-    Toast.show({
-      type: 'info',
-      position: 'bottom',
-      text1: 'Showing Android device info 🤖',
-    });
+    NativeModules.DeviceModule.openDeviceInfoScreen();
   };
   return (
     <SafeAreaProvider>

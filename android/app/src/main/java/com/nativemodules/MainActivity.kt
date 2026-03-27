@@ -13,14 +13,8 @@ class MainActivity : ReactActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(null)
-
-        openDeviceInfoScreen()
     }
 
-    fun openDeviceInfoScreen() {
-        val intent = Intent(this, DeviceInfoActivity::class.java)
-        startActivity(intent)
-    }
 
     override fun createReactActivityDelegate(): ReactActivityDelegate =
         DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
