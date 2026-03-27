@@ -15,7 +15,6 @@ class MainActivity : ReactActivity() {
         super.onCreate(null)
     }
 
-
     override fun createReactActivityDelegate(): ReactActivityDelegate =
         DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
 }
