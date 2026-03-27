@@ -14,6 +14,10 @@ import {
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 //custom toast
 import Toast from 'react-native-toast-message';
+
+//component
+import ShowButton from './src/components/ShowButton/ShowButton';
+
 function App() {
   const handleAndroid = () => {
     NativeModules.DeviceModule.openDeviceInfoScreen();
@@ -21,15 +25,25 @@ function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity
-          style={styles.button}
-          activeOpacity={0.4}
-          onPress={() => handleAndroid()}
-        >
-          <Text style={styles.text}> Show Android Device Details 🤖 </Text>
-        </TouchableOpacity>
-        <Toast />
+        <ShowButton
+          title="Show Android Device Details 🤖"
+          onPress={() => NativeModules.DeviceModule.openDeviceInfoScreen()}
+          backgroundColor="#4CAF50"
+        />
+
+        <ShowButton
+          title="Show iOS Device Details 📱"
+          onPress={() =>
+            Toast.show({
+              type: 'info',
+              text1: 'iOS Device Info coming soon!',
+              position: 'bottom',
+            })
+          }
+          backgroundColor="#007AFF"
+        />
       </SafeAreaView>
+      <Toast />
     </SafeAreaProvider>
   );
 }
