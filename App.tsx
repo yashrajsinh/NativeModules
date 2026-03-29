@@ -5,12 +5,7 @@
  * @format
  */
 
-import {
-  NativeModules,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { NativeModules, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 //custom toast
 import Toast from 'react-native-toast-message';
@@ -19,9 +14,6 @@ import Toast from 'react-native-toast-message';
 import ShowButton from './src/components/ShowButton/ShowButton';
 
 function App() {
-  const handleAndroid = () => {
-    NativeModules.DeviceModule.openDeviceInfoScreen();
-  };
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -33,13 +25,7 @@ function App() {
 
         <ShowButton
           title="Show iOS Device Details 📱"
-          onPress={() =>
-            Toast.show({
-              type: 'info',
-              text1: 'iOS Device Info coming soon!',
-              position: 'bottom',
-            })
-          }
+          onPress={() => NativeModules.iOSDeviceInfoModule.openDeviceScreen()}
           backgroundColor="#007AFF"
         />
       </SafeAreaView>
