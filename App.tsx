@@ -5,31 +5,30 @@
  * @format
  */
 
-import { NativeModules, StyleSheet } from 'react-native';
+import { NativeModules, StyleSheet, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-//custom toast
-import Toast from 'react-native-toast-message';
 
 //component
 import ShowButton from './src/components/ShowButton/ShowButton';
-
+const isAndroid = Platform.OS === 'android';
 function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <ShowButton
-          title="Show Android Device Details 🤖"
-          onPress={() => NativeModules.DeviceModule.openDeviceInfoScreen()}
-          backgroundColor="#4CAF50"
-        />
-
-        <ShowButton
-          title="Show iOS Device Details 📱"
-          onPress={() => NativeModules.iOSDeviceInfoModule.openDeviceScreen()}
-          backgroundColor="#007AFF"
+          title={
+            isAndroid
+              ? 'Show Android Device Details 🤖'
+              : 'Show iOS Device Details 📱'
+          }
+          onPress={() =>
+            isAndroid
+              ? NativeModules.DeviceModule.openDeviceInfoScreen()
+              : NativeModules.iOSDeviceInfoModule.openDeviceScreen()
+          }
+          backgroundColor={isAndroid ? '#4CAF50' : '#007AFF'}
         />
       </SafeAreaView>
-      <Toast />
     </SafeAreaProvider>
   );
 }
@@ -39,13 +38,12 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#4CAF50', // nice green
-    paddingVertical: 14,
+    paddingVertical: 20,
     paddingHorizontal: 20,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 5, // Android shadow
-    marginHorizontal: 20, // adds space left & right
   },
   text: {
     color: '#fff',
