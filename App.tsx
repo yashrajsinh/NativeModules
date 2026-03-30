@@ -37,7 +37,9 @@ function App() {
               : 'Show iOS Device Details 📱'
           }
           onPress={() =>
-            isAndroid ? DeviceModule.openDeviceInfoScreen() : null
+            isAndroid
+              ? DeviceModule.openDeviceInfoScreen()
+              : NativeModules.iOSDeviceInfoModule.openDeviceScreen()
           }
           backgroundColor={isAndroid ? '#4CAF50' : '#007AFF'}
         />
