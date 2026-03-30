@@ -2,7 +2,7 @@
 
     <application>
         <activity
-            android:name="com.nativemodules.DeviceInfoActivity"
+            android:name="com.nativemodules.deviceinfo.DeviceInfoActivity"
             android:exported="false"
 
             />

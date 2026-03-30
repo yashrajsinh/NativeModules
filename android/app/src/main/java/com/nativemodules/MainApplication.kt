@@ -8,13 +8,14 @@ import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 
 // custom native module
-import com.nativemodules.DeviceModule
+import com.nativemodules.deviceinfo.DeviceModule
 
 // React Native classes needed for manual package
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
+import com.nativemodules.imageviewer.StaticUrlImagePackage
 
 class MainApplication : Application(), ReactApplication {
 
@@ -22,6 +23,8 @@ class MainApplication : Application(), ReactApplication {
     getDefaultReactHost(
       context = applicationContext,
       packageList = PackageList(this).packages.apply {
+        //image module
+        add(StaticUrlImagePackage())
         // add custom package here
         add(object : ReactPackage {
           override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {

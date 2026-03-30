@@ -1,4 +1,4 @@
-package com.nativemodules;
+package com.nativemodules.deviceinfo;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.nativemodules.R;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
