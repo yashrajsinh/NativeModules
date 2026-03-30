@@ -9,13 +9,11 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 public class DeviceModule extends ReactContextBaseJavaModule {
-    //React context
-    private final ReactApplicationContext reactContext;
 
     public DeviceModule(ReactApplicationContext reactContext){
         super(reactContext);
-        this.reactContext = reactContext;
     }
+
     @NonNull
     @Override
     public String getName() {
