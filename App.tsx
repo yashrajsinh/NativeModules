@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Platform,
   requireNativeComponent,
+  ToastAndroid,
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
@@ -15,22 +16,14 @@ const isAndroid = Platform.OS === 'android';
 // native module
 const { ImageUrlModule, DeviceModule } = NativeModules;
 
-// native UI component
-const NativeImageView = requireNativeComponent('StaticUrlImageView');
-
 function App() {
-  const [showImage, setShowImage] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-
   // call native module → get URL → show image
   const loadImage = async () => {
     try {
-      const url = await ImageUrlModule.getImageURL();
-      setImageUrl(url);
-      setShowImage(true);
-    } catch (e) {
-      console.log('Error getting image URL', e);
-    }
+      const url = await ImageUrlModule.openImageViewScreen(
+        'https://media2.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dDB1ZGR1cnlkdTA3cjJnM3Y4OTlnOG9jOWg4dWs2Yjl5eXp4OWc4bCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/3jcgPn9fzfaXc1EHJC/200.webp',
+      );
+    } catch (e) {}
   };
 
   return (
@@ -52,17 +45,9 @@ function App() {
         {/* Image button */}
         <ShowButton
           title="Show Image 🚀"
-          onPress={loadImage}
-          backgroundColor="#4CAF50"
+          onPress={() => loadImage()}
+          backgroundColor={isAndroid ? '#4CAF50' : '#007AFF'}
         />
-
-        {/* Native Image View */}
-        {showImage && imageUrl && (
-          <NativeImageView
-            style={{ width: 300, height: 300 }}
-            imageUrl={imageUrl}
-          />
-        )}
       </SafeAreaView>
     </SafeAreaProvider>
   );
