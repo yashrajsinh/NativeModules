@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		009B88BD2F7A921F0041AEC4 /* NativeImageModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B88BC2F7A921F0041AEC4 /* NativeImageModule.swift */; };
+		009B88C22F7AAB150041AEC4 /* NativeImageModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B88C12F7AAAFD0041AEC4 /* NativeImageModule.m */; };
 		0C80B921A6F3F58F76C31292 /* libPods-NativeModules.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-NativeModules.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		20567225ADECAA6837B52763 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		009B88BC2F7A921F0041AEC4 /* NativeImageModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeImageModule.swift; sourceTree = "<group>"; };
+		009B88C12F7AAAFD0041AEC4 /* NativeImageModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeImageModule.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NativeModules.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeModules.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = NativeModules/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NativeModules/Info.plist; sourceTree = "<group>"; };
@@ -80,10 +84,12 @@
 		6E3BA1582F78EBDA0087B4BA /* NativeModule */ = {
 			isa = PBXGroup;
 			children = (
+				009B88C12F7AAAFD0041AEC4 /* NativeImageModule.m */,
 				6E3BA1642F78F39A0087B4BA /* iOSDeviceModule.m */,
 				6E3BA15C2F78EC1A0087B4BA /* iOSDeviceInfo.swift */,
 				6E3BA15E2F78ED730087B4BA /* iOSDeviceInfoModule.swift */,
 				6E3BA1622F78EEC10087B4BA /* NativeModules-Bridging-Header.h */,
+				009B88BC2F7A921F0041AEC4 /* NativeImageModule.swift */,
 			);
 			path = NativeModule;
 			sourceTree = "<group>";
@@ -277,10 +283,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				009B88C22F7AAB150041AEC4 /* NativeImageModule.m in Sources */,
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
 				6E3BA1652F78F3A40087B4BA /* iOSDeviceModule.m in Sources */,
 				6E3BA15F2F78ED730087B4BA /* iOSDeviceInfoModule.swift in Sources */,
 				6E3BA15D2F78EC1A0087B4BA /* iOSDeviceInfo.swift in Sources */,
+				009B88BD2F7A921F0041AEC4 /* NativeImageModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

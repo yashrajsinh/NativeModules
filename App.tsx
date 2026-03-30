@@ -1,11 +1,5 @@
-import React, { useState } from 'react';
-import {
-  NativeModules,
-  StyleSheet,
-  Platform,
-  requireNativeComponent,
-  ToastAndroid,
-} from 'react-native';
+import React from 'react';
+import { NativeModules, StyleSheet, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 // component
@@ -14,7 +8,7 @@ import ShowButton from './src/components/ShowButton/ShowButton';
 const isAndroid = Platform.OS === 'android';
 
 // native module
-const { ImageUrlModule, DeviceModule } = NativeModules;
+const { NativeImageModule, ImageUrlModule, DeviceModule } = NativeModules;
 
 function App() {
   // call native module → get URL → show image
@@ -47,7 +41,13 @@ function App() {
         {/* Image button */}
         <ShowButton
           title="Show Image 🚀"
-          onPress={() => loadImage()}
+          onPress={() =>
+            isAndroid
+              ? loadImage()
+              : NativeModules.NativeImageModule.showImage(
+                  'https://picsum.photos/400/300',
+                )
+          }
           backgroundColor={isAndroid ? '#4CAF50' : '#007AFF'}
         />
       </SafeAreaView>
