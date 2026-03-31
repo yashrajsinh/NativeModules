@@ -1,5 +1,11 @@
-import React from 'react';
-import { NativeModules, StyleSheet, Platform } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  NativeModules,
+  StyleSheet,
+  Platform,
+  Text,
+  NativeEventEmitter,
+} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 // component
@@ -8,9 +14,22 @@ import ShowButton from './src/components/ShowButton/ShowButton';
 const isAndroid = Platform.OS === 'android';
 
 // native module
-const { NativeImageModule, ImageUrlModule, DeviceModule } = NativeModules;
+const { NameModule, ImageUrlModule, DeviceModule } = NativeModules;
+const emitter = new NativeEventEmitter(NameModule);
 
 function App() {
+  //var for name
+  const [name, setName] = React.useState('');
+
+  //useEffect to render name
+  useEffect(() => {
+    const sub = emitter.addListener('onNameReceived', data => {
+      console.log('Received:', data);
+      setName(data);
+    });
+    return () => sub.remove();
+  }, []);
+
   // call native module → get URL → show image
   const loadImage = async () => {
     try {
@@ -45,11 +64,26 @@ function App() {
             isAndroid
               ? loadImage()
               : NativeModules.NativeImageModule.showImage(
-                  'https://picsum.photos/400/300',
+                  'https://media.tenor.com/DU-WbRilkxQAAAAM/dogevr-office.gif',
                 )
           }
           backgroundColor={isAndroid ? '#4CAF50' : '#007AFF'}
         />
+
+        {/* Name button */}
+        <ShowButton
+          title="Take me to the moon 🌑"
+          onPress={() =>
+            isAndroid
+              ? NameModule.openNameScreen()
+              : NativeModules.NativeImageModule.showImage(
+                  'https://media.tenor.com/DU-WbRilkxQAAAAM/dogevr-office.gif',
+                )
+          }
+          backgroundColor={isAndroid ? '#4CAF50' : '#007AFF'}
+        />
+
+        <Text style={{ marginTop: 20 }}>Name: {name}</Text>
       </SafeAreaView>
     </SafeAreaProvider>
   );
