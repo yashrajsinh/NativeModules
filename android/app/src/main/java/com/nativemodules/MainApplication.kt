@@ -10,6 +10,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 // custom native module
 import com.nativemodules.deviceinfo.DeviceModule
 import com.nativemodules.imageviewer.ImageUrlModule
+import com.nativemodules.namesender.NameModule
 
 // React Native classes needed for manual package
 import com.facebook.react.ReactPackage
@@ -29,7 +30,8 @@ class MainApplication : Application(), ReactApplication {
           override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
             // adding custom module here
             return listOf(DeviceModule(reactContext),
-              ImageUrlModule(reactContext)
+              ImageUrlModule(reactContext),
+              NameModule(reactContext)
             )
           }
 
