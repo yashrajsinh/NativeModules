@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Platform,
   Text,
-  DeviceEventEmitter,
+  NativeEventEmitter,
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
@@ -16,18 +16,20 @@ const isAndroid = Platform.OS === 'android';
 // native module
 const { NameModule, ImageUrlModule, DeviceModule } = NativeModules;
 
+const emitter = new NativeEventEmitter(NameModule);
+
 function App() {
   //var for name
   const [name, setName] = React.useState('');
 
-  //useEffect to render name
+  //show name
   useEffect(() => {
-    const sub = DeviceEventEmitter.addListener('onNameReceived', data => {
-      console.log('Received:', data);
-      setName(data);
+    const subscription = emitter.addListener('onNameSelected', name => {
+      console.log('Received:', name);
+      setName(name);
     });
 
-    return () => sub.remove();
+    return () => subscription.remove();
   }, []);
 
   // call native module → get URL → show image
@@ -81,12 +83,14 @@ function App() {
               } catch (e) {
                 // User dismissed or cancelled — do nothing
               }
+            } else {
+              NameModule.openNameScreen();
             }
           }}
           backgroundColor={isAndroid ? '#4CAF50' : '#007AFF'}
         />
 
-        <Text style={{ marginTop: 20 }}>Name: {name}</Text>
+        <Text style={styles.nameCard}>{name ? `Name: ${name}` : null}</Text>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -95,6 +99,23 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  label: {
+    marginTop: 20,
+    fontSize: 14,
+    color: '#777',
+  },
+
+  nameCard: {
+    marginTop: 8,
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#000',
+    backgroundColor: '#f2f2f2',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
 });
 
