@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Platform,
   Text,
-  NativeEventEmitter,
+  DeviceEventEmitter,
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
@@ -15,7 +15,6 @@ const isAndroid = Platform.OS === 'android';
 
 // native module
 const { NameModule, ImageUrlModule, DeviceModule } = NativeModules;
-const emitter = new NativeEventEmitter(NameModule);
 
 function App() {
   //var for name
@@ -23,10 +22,11 @@ function App() {
 
   //useEffect to render name
   useEffect(() => {
-    const sub = emitter.addListener('onNameReceived', data => {
+    const sub = DeviceEventEmitter.addListener('onNameReceived', data => {
       console.log('Received:', data);
       setName(data);
     });
+
     return () => sub.remove();
   }, []);
 
@@ -73,13 +73,16 @@ function App() {
         {/* Name button */}
         <ShowButton
           title="Take me to the moon 🌑"
-          onPress={() =>
-            isAndroid
-              ? NameModule.openNameScreen()
-              : NativeModules.NativeImageModule.showImage(
-                  'https://media.tenor.com/DU-WbRilkxQAAAAM/dogevr-office.gif',
-                )
-          }
+          onPress={async () => {
+            if (isAndroid) {
+              try {
+                const receivedName = await NameModule.openNameScreen();
+                setName(receivedName);
+              } catch (e) {
+                // User dismissed or cancelled — do nothing
+              }
+            }
+          }}
           backgroundColor={isAndroid ? '#4CAF50' : '#007AFF'}
         />
 
